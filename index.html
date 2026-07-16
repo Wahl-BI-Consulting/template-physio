@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Cabinet Équilibre — physiothérapie et thérapie manuelle à Lausanne. Démonstration réalisée par Wahl BI Consulting.">
+<link rel="icon" href="data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'><text%20y='.9em'%20font-size='90'>🌿</text></svg>">
+<title>Cabinet Équilibre — Physiothérapie & thérapie manuelle · Lausanne</title>
+
+<!--
+     CABINET ÉQUILIBRE — site vitrine de démonstration
+     Réalisé par Wahl BI Consulting · Secteur : physiothérapie / thérapie manuelle & bien-être
+     Entreprise FICTIVE. Aucune photo : tous les visuels sont en CSS et SVG dessinés à la main.
+     100% autonome — aucune requête externe.
+-->
+
+<style>
+  /* ============================================================
+     Palette — « lumière, espace, respiration »
+     Lin / blanc os · sauge de soin · encre forêt · terre miel
+     ============================================================ */
+  :root{
+    --lin:        #F6F3EA;   /* fond principal — blanc os / lin clair   */
+    --lin-2:      #FBF9F3;   /* surface claire                          */
+    --sable:      #ECE3D2;   /* sable doux — neutre chaud (terre douce) */
+    --sable-2:    #E3D7C0;   /* sable plus dense                        */
+    --encre:      #232C26;   /* texte principal — vert-encre profond    */
+    --encre-soft: #4C574F;   /* texte secondaire                        */
+    --sauge:      #557C68;   /* accent soin — sauge                     */
+    --sauge-deep: #3C5C4B;   /* sauge profonde — boutons, texte accent  */
+    --sauge-clair:#8CB29E;   /* sauge claire — glow, illustrations      */
+    --sauge-wash: #DCE7DE;   /* voile sauge très clair — surfaces       */
+    --terre:      #B98E5A;   /* terre miel — accent chaud, parcimonie   */
+    --terre-soft: #E7D2AE;   /* terre miel clair                        */
+    --blanc:      #FFFFFF;
+    --hair:       #DED3BF;   /* filets                                  */
+    --hair-2:     #CFC2A8;
+
+    --radius:     22px;
+    --radius-lg:  30px;
+    --shadow-sm:  0 1px 2px rgba(45,60,50,.05), 0 4px 14px rgba(45,60,50,.05);
+    --shadow-md:  0 2px 6px rgba(45,60,50,.06), 0 18px 44px rgba(45,60,50,.09);
+    --shadow-lg:  0 8px 24px rgba(45,60,50,.08), 0 36px 80px rgba(45,60,50,.12);
+
+    --serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+    --sans:  ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono:  ui-monospace, "SFMono-Regular", "Cascadia Code", Menlo, Consolas, monospace;
+
+    --wrap: 1200px;
+    color-scheme: light;
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    margin:0;
+    font-family:var(--sans);
+    color:var(--encre);
+    background:var(--lin);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+
+  /* Grain léger + halos de lumière (100% inline, aucune requête réseau) */
+  body::before{
+    content:"";
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(760px 520px at 82% -6%, rgba(140,178,158,.30), transparent 60%),
+      radial-gradient(680px 520px at -8% 12%, rgba(231,210,174,.34), transparent 60%),
+      radial-gradient(900px 700px at 50% 118%, rgba(140,178,158,.16), transparent 60%);
+  }
+  body::after{
+    content:"";
+    position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.05;
+    mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  main, header, footer{ position:relative; z-index:1; }
+
+  .wrap{ width:100%; max-width:var(--wrap); margin-inline:auto; padding-inline:clamp(1.1rem,4vw,2.6rem); }
+
+  a{ color:var(--sauge-deep); text-underline-offset:3px; }
+
+  /* Focus visible — accessibilité */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  textarea:focus-visible, select:focus-visible, summary:focus-visible{
+    outline:3px solid var(--sauge-deep);
+    outline-offset:3px;
+    border-radius:6px;
+  }
+
+  .skip{
+    position:absolute; left:-9999px; top:0; z-index:200;
+    background:var(--sauge-deep); color:#fff; padding:.7rem 1.1rem;
+    border-radius:0 0 12px 0; font-weight:600; text-decoration:none;
+  }
+  .skip:focus{ left:0; }
+
+  /* ---------- Typographie ---------- */
+  h1,h2,h3{ font-family:var(--serif); font-weight:600; line-height:1.08; letter-spacing:-.012em; color:var(--encre); margin:0; }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:.55rem;
+    font-family:var(--sans); font-size:.72rem; font-weight:700;
+    letter-spacing:.22em; text-transform:uppercase; color:var(--sauge-deep);
+    margin:0 0 1rem;
+  }
+  .eyebrow .led{
+    width:8px; height:8px; border-radius:50%;
+    background:var(--sauge-clair);
+    box-shadow:0 0 0 4px rgba(140,178,158,.25), 0 0 10px 2px rgba(140,178,158,.7);
+    animation:pulse 3.4s ease-in-out infinite;
+  }
+  @keyframes pulse{ 0%,100%{ transform:scale(1); opacity:.85; } 50%{ transform:scale(1.35); opacity:1; } }
+
+  .lede{ font-size:clamp(1.05rem,1.6vw,1.28rem); color:var(--encre-soft); max-width:60ch; }
+
+  /* ---------- Boutons ---------- */
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
+    font-family:var(--sans); font-weight:650; font-size:1rem;
+    padding:.92rem 1.55rem; border-radius:999px; text-decoration:none;
+    cursor:pointer; border:1.5px solid transparent; transition:transform .25s ease, box-shadow .25s ease, background .2s ease, color .2s ease;
+    will-change:transform;
+  }
+  .btn svg{ width:18px; height:18px; }
+  .btn-primary{
+    background:var(--sauge-deep); color:#fff;
+    box-shadow:0 6px 18px rgba(60,92,75,.28);
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 12px 30px rgba(60,92,75,.36); background:#345140; }
+  .btn-ghost{
+    background:transparent; color:var(--sauge-deep); border-color:var(--hair-2);
+  }
+  .btn-ghost:hover{ transform:translateY(-2px); border-color:var(--sauge); background:rgba(255,255,255,.55); }
+
+  /* ============ Header / navigation ============ */
+  header.site{
+    position:sticky; top:0; z-index:100;
+    backdrop-filter:saturate(1.2) blur(12px);
+    background:rgba(246,243,234,.78);
+    border-bottom:1px solid rgba(222,211,191,.7);
+  }
+  .nav{ display:flex; align-items:center; justify-content:space-between; gap:1rem; padding-block:.7rem; }
+  .brand{ display:flex; align-items:center; gap:.7rem; text-decoration:none; color:var(--encre); }
+  .brand .mark{ width:40px; height:40px; flex:0 0 auto; }
+  .brand b{ font-family:var(--serif); font-size:1.24rem; font-weight:600; letter-spacing:-.01em; display:block; line-height:1; }
+  .brand small{ font-family:var(--sans); font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; color:var(--sauge-deep); }
+  .nav-links{ display:flex; align-items:center; gap:.35rem; list-style:none; margin:0; padding:0; }
+  .nav-links a{ text-decoration:none; color:var(--encre-soft); font-weight:550; font-size:.94rem; padding:.5rem .8rem; border-radius:999px; transition:color .2s, background .2s; }
+  .nav-links a:hover{ color:var(--encre); background:rgba(220,231,222,.7); }
+  .nav-cta{ display:flex; align-items:center; gap:.6rem; }
+  .nav-tel{ font-weight:650; color:var(--sauge-deep); text-decoration:none; font-size:.94rem; white-space:nowrap; }
+  .nav-tel:hover{ text-decoration:underline; }
+  .burger{ display:none; background:none; border:1.5px solid var(--hair-2); border-radius:12px; padding:.5rem; cursor:pointer; color:var(--encre); }
+  .burger svg{ width:22px; height:22px; }
+
+  /* ============ Hero ============ */
+  .hero{ padding:clamp(2.4rem,6vw,4.6rem) 0 clamp(2rem,5vw,3.4rem); }
+  .hero-grid{ display:grid; grid-template-columns:1.06fr .94fr; gap:clamp(1.6rem,4vw,3.4rem); align-items:center; }
+  .hero h1{ font-size:clamp(2.35rem,5.4vw,4.05rem); margin-bottom:1.15rem; }
+  .hero h1 em{ font-style:italic; color:var(--sauge-deep); }
+  .hero .lede{ margin-bottom:1.7rem; }
+  .hero-cta{ display:flex; flex-wrap:wrap; gap:.8rem; margin-bottom:1.9rem; }
+  .chips{ display:flex; flex-wrap:wrap; gap:.55rem; }
+  .chip{
+    display:inline-flex; align-items:center; gap:.5rem;
+    background:var(--lin-2); border:1px solid var(--hair);
+    padding:.5rem .85rem; border-radius:999px; font-size:.82rem; color:var(--encre-soft); font-weight:550;
+    box-shadow:var(--shadow-sm);
+  }
+  .chip svg{ width:16px; height:16px; color:var(--sauge); flex:0 0 auto; }
+
+  /* Illustration hero — respiration + silhouette (SVG dessiné main) */
+  .hero-art{ position:relative; }
+  .hero-art .card{
+    position:relative;
+    background:linear-gradient(160deg, #FBF9F3 0%, #EEF3ED 60%, #E4EDE5 100%);
+    border:1px solid rgba(222,211,191,.9);
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-lg);
+    padding:1.3rem;
+    overflow:hidden;
+  }
+  .hero-art svg{ display:block; width:100%; height:auto; }
+  .breathe-ring{ transform-origin:center; animation:breathe 7s ease-in-out infinite; }
+  .breathe-ring.r2{ animation-delay:.4s; }
+  .breathe-ring.r3{ animation-delay:.8s; }
+  @keyframes breathe{ 0%,100%{ transform:scale(.9); opacity:.35; } 50%{ transform:scale(1.06); opacity:.9; } }
+  .float-dot{ animation:floaty 6s ease-in-out infinite; transform-origin:center; }
+  .float-dot.d2{ animation-delay:1.1s; } .float-dot.d3{ animation-delay:2.2s; } .float-dot.d4{ animation-delay:.6s; }
+  @keyframes floaty{ 0%,100%{ transform:translateY(0); opacity:.7; } 50%{ transform:translateY(-6px); opacity:1; } }
+  .draw-wave{ stroke-dasharray:520; stroke-dashoffset:520; animation:draw 4.6s ease forwards .3s; }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+
+  .hero-badge{
+    position:absolute; right:-6px; bottom:18px;
+    background:var(--blanc); border:1px solid var(--hair);
+    border-radius:18px; padding:.75rem .95rem; box-shadow:var(--shadow-md);
+    display:flex; align-items:center; gap:.7rem; max-width:230px;
+  }
+  .hero-badge .dot{ width:34px; height:34px; border-radius:12px; background:var(--sauge-wash); display:grid; place-items:center; flex:0 0 auto; }
+  .hero-badge .dot svg{ width:20px; height:20px; color:var(--sauge-deep); }
+  .hero-badge b{ font-size:.86rem; display:block; line-height:1.1; }
+  .hero-badge span{ font-size:.72rem; color:var(--encre-soft); }
+
+  /* ============ Sections communes ============ */
+  section{ padding-block:clamp(3rem,7vw,5.4rem); }
+  .sec-head{ max-width:64ch; margin-bottom:clamp(1.8rem,4vw,3rem); }
+  .sec-head h2{ font-size:clamp(1.85rem,3.6vw,2.9rem); margin-bottom:.7rem; }
+  .sec-head p{ color:var(--encre-soft); font-size:1.05rem; margin:0; }
+  .idx{
+    display:inline-flex; align-items:center; gap:.55rem;
+    font-size:.72rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--sauge-deep);
+    margin-bottom:.9rem;
+  }
+  .idx::before{ content:""; width:26px; height:1.5px; background:var(--sauge); display:inline-block; }
+
+  /* ============ Les soins ============ */
+  .soins{ background:linear-gradient(180deg, transparent, rgba(220,231,222,.35) 40%, transparent); }
+  .soins-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(255px,1fr)); gap:1.1rem; }
+  .care{
+    background:var(--lin-2); border:1px solid var(--hair);
+    border-radius:var(--radius); padding:1.6rem 1.5rem; box-shadow:var(--shadow-sm);
+    transition:transform .3s ease, box-shadow .3s ease, border-color .3s;
+    position:relative; overflow:hidden;
+  }
+  .care::after{
+    content:""; position:absolute; inset:0 0 auto 0; height:3px;
+    background:linear-gradient(90deg, var(--sauge-clair), var(--sauge));
+    transform:scaleX(0); transform-origin:left; transition:transform .4s ease;
+  }
+  .care:hover{ transform:translateY(-5px); box-shadow:var(--shadow-md); border-color:var(--sauge-clair); }
+  .care:hover::after{ transform:scaleX(1); }
+  .care .ico{
+    width:58px; height:58px; border-radius:16px; margin-bottom:1.05rem;
+    background:radial-gradient(120% 120% at 30% 20%, var(--sauge-wash), #EBF1EC);
+    display:grid; place-items:center; border:1px solid rgba(140,178,158,.4);
+  }
+  .care .ico svg{ width:30px; height:30px; color:var(--sauge-deep); }
+  .care h3{ font-size:1.24rem; margin-bottom:.45rem; }
+  .care p{ margin:0 0 .9rem; color:var(--encre-soft); font-size:.95rem; }
+  .care .tag{ font-size:.76rem; font-weight:650; color:var(--sauge-deep); background:var(--sauge-wash); padding:.28rem .7rem; border-radius:999px; }
+
+  /* ============ Approche / cabinet ============ */
+  .approche-grid{ display:grid; grid-template-columns:.92fr 1.08fr; gap:clamp(1.6rem,4vw,3.4rem); align-items:center; }
+  .room-card{
+    background:linear-gradient(155deg, #FBF9F3, #EDE4D2);
+    border:1px solid var(--hair); border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-lg); padding:1.2rem; overflow:hidden;
+  }
+  .room-card svg{ display:block; width:100%; height:auto; }
+  .sun-ray{ animation:shimmer 6s ease-in-out infinite; transform-origin:top left; }
+  @keyframes shimmer{ 0%,100%{ opacity:.35; } 50%{ opacity:.8; } }
+  .values{ list-style:none; margin:1.6rem 0 0; padding:0; display:grid; gap:1.05rem; }
+  .values li{ display:flex; gap:.95rem; align-items:flex-start; }
+  .values .vi{
+    width:42px; height:42px; flex:0 0 auto; border-radius:12px;
+    background:var(--sauge-wash); display:grid; place-items:center; border:1px solid rgba(140,178,158,.4);
+  }
+  .values .vi svg{ width:22px; height:22px; color:var(--sauge-deep); }
+  .values b{ display:block; font-size:1.02rem; }
+  .values span{ color:var(--encre-soft); font-size:.94rem; }
+
+  /* ============ Déroulé d'une séance ============ */
+  .seance{ background:var(--encre); color:#EDEBE3; border-radius:0; }
+  .seance .idx, .seance .eyebrow{ color:var(--sauge-clair); }
+  .seance .idx::before{ background:var(--sauge-clair); }
+  .seance h2{ color:#FBF9F3; }
+  .seance .sec-head p{ color:#C6CCC4; }
+  .steps{ display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:1.2rem; counter-reset:step; }
+  .step{
+    position:relative; padding:1.5rem 1.4rem;
+    background:rgba(255,255,255,.045); border:1px solid rgba(140,178,158,.22);
+    border-radius:var(--radius);
+  }
+  .step .n{
+    font-family:var(--serif); font-size:1.7rem; color:var(--sauge-clair);
+    width:52px; height:52px; border-radius:14px; display:grid; place-items:center;
+    background:rgba(140,178,158,.14); border:1px solid rgba(140,178,158,.35); margin-bottom:1rem;
+  }
+  .step h3{ color:#FBF9F3; font-size:1.14rem; margin-bottom:.4rem; }
+  .step p{ margin:0; color:#C6CCC4; font-size:.92rem; }
+  .step .line{ position:absolute; top:2.75rem; right:-.7rem; width:1.4rem; height:2px; background:rgba(140,178,158,.4); }
+  @media (max-width:760px){ .step .line{ display:none; } }
+
+  /* ============ Vitrine visuelle — mouvement & respiration ============ */
+  .vitrine .board{
+    background:linear-gradient(150deg, #FBF9F3, #E9F0EA 55%, #E3ECE4);
+    border:1px solid var(--hair); border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-lg); padding:clamp(1.4rem,4vw,2.6rem); overflow:hidden;
+  }
+  .poses{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1rem; }
+  .pose{
+    background:rgba(255,255,255,.55); border:1px solid rgba(222,211,191,.8);
+    border-radius:18px; padding:1.1rem .9rem; text-align:center; box-shadow:var(--shadow-sm);
+  }
+  .pose svg{ width:100%; height:auto; max-height:130px; color:var(--sauge-deep); }
+  .pose span{ display:block; margin-top:.6rem; font-size:.8rem; font-weight:600; color:var(--sauge-deep); letter-spacing:.02em; }
+
+  /* ============ Témoignages ============ */
+  .temoins{ background:linear-gradient(180deg, transparent, rgba(231,210,174,.22), transparent); }
+  .quotes{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.2rem; }
+  .quote{
+    background:var(--lin-2); border:1px solid var(--hair); border-radius:var(--radius);
+    padding:1.7rem 1.6rem; box-shadow:var(--shadow-sm); display:flex; flex-direction:column; gap:1rem;
+  }
+  .quote .mk{ font-family:var(--serif); font-size:2.6rem; line-height:.4; color:var(--sauge-clair); height:1.1rem; }
+  .quote p{ margin:0; font-size:1.02rem; color:var(--encre); }
+  .quote .who{ display:flex; align-items:center; gap:.75rem; margin-top:auto; }
+  .quote .av{
+    width:44px; height:44px; border-radius:50%; flex:0 0 auto;
+    display:grid; place-items:center; font-family:var(--serif); font-weight:600; color:#fff; font-size:1.05rem;
+  }
+  .quote .who b{ display:block; font-size:.94rem; }
+  .quote .who span{ font-size:.8rem; color:var(--encre-soft); }
+  .quote .stars{ color:var(--terre); letter-spacing:2px; font-size:.9rem; }
+  .temoin-note{ margin-top:1.3rem; font-size:.82rem; color:var(--encre-soft); font-style:italic; }
+
+  /* ============ Horaires + RDV ============ */
+  .rdv-grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(1.4rem,3.5vw,2.6rem); }
+  .panel{
+    background:var(--lin-2); border:1px solid var(--hair);
+    border-radius:var(--radius); padding:clamp(1.5rem,3vw,2.2rem); box-shadow:var(--shadow-sm);
+  }
+  .panel h3{ font-size:1.35rem; margin-bottom:1.2rem; display:flex; align-items:center; gap:.6rem; }
+  .panel h3 svg{ width:22px; height:22px; color:var(--sauge-deep); }
+  .hours{ width:100%; border-collapse:collapse; }
+  .hours th, .hours td{ text-align:left; padding:.72rem .2rem; border-bottom:1px solid var(--hair); font-size:.95rem; }
+  .hours th{ font-weight:600; color:var(--encre); }
+  .hours td{ color:var(--encre-soft); text-align:right; font-variant-numeric:tabular-nums; }
+  .hours tr:last-child th, .hours tr:last-child td{ border-bottom:0; }
+  .hours .closed{ color:var(--terre); font-weight:600; }
+  .rdv-inner{ background:linear-gradient(160deg, var(--sauge-deep), #2F4B3C); color:#EDF2ED; border:0; }
+  .rdv-inner h3{ color:#fff; }
+  .rdv-inner h3 svg{ color:var(--sauge-clair); }
+  .rdv-inner p{ color:#CFDBD1; }
+  .rdv-inner .btn-primary{ background:#fff; color:var(--sauge-deep); box-shadow:0 8px 24px rgba(0,0,0,.22); }
+  .rdv-inner .btn-primary:hover{ background:#F3F6F2; }
+  .rdv-inner .btn-ghost{ color:#fff; border-color:rgba(255,255,255,.4); }
+  .rdv-inner .btn-ghost:hover{ border-color:#fff; background:rgba(255,255,255,.1); }
+  .rdv-list{ list-style:none; margin:1.3rem 0; padding:0; display:grid; gap:.75rem; }
+  .rdv-list li{ display:flex; gap:.7rem; align-items:flex-start; font-size:.95rem; color:#DCE6DD; }
+  .rdv-list svg{ width:19px; height:19px; color:var(--sauge-clair); flex:0 0 auto; margin-top:.15rem; }
+
+  /* ============ Contact ============ */
+  .contact-grid{ display:grid; grid-template-columns:.85fr 1.15fr; gap:clamp(1.6rem,4vw,3rem); align-items:start; }
+  .contact-info{ display:grid; gap:1.15rem; }
+  .ci{ display:flex; gap:.9rem; align-items:flex-start; }
+  .ci .ii{ width:44px; height:44px; flex:0 0 auto; border-radius:12px; background:var(--sauge-wash); display:grid; place-items:center; border:1px solid rgba(140,178,158,.4); }
+  .ci .ii svg{ width:22px; height:22px; color:var(--sauge-deep); }
+  .ci b{ display:block; font-size:.98rem; }
+  .ci a, .ci span{ color:var(--encre-soft); font-size:.94rem; text-decoration:none; }
+  .ci a:hover{ text-decoration:underline; color:var(--sauge-deep); }
+
+  form{ background:var(--lin-2); border:1px solid var(--hair); border-radius:var(--radius); padding:clamp(1.5rem,3vw,2.2rem); box-shadow:var(--shadow-sm); }
+  .field{ margin-bottom:1.1rem; }
+  .field.row{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:0; }
+  @media (max-width:520px){ .field.row{ grid-template-columns:1fr; gap:0; } .field.row > *{ margin-bottom:1.1rem; } }
+  label{ display:block; font-weight:600; font-size:.88rem; margin-bottom:.4rem; color:var(--encre); }
+  .req{ color:var(--terre); }
+  input, textarea, select{
+    width:100%; font-family:var(--sans); font-size:1rem; color:var(--encre);
+    background:var(--blanc); border:1.5px solid var(--hair-2); border-radius:12px;
+    padding:.78rem .9rem; transition:border-color .2s, box-shadow .2s;
+  }
+  input::placeholder, textarea::placeholder{ color:#9AA298; }
+  input:focus, textarea:focus, select:focus{ border-color:var(--sauge); box-shadow:0 0 0 3px rgba(140,178,158,.3); outline:none; }
+  textarea{ resize:vertical; min-height:120px; }
+  .consent{ display:flex; gap:.7rem; align-items:flex-start; font-size:.86rem; color:var(--encre-soft); margin-bottom:1.1rem; }
+  .consent input{ width:auto; margin-top:.2rem; flex:0 0 auto; accent-color:var(--sauge-deep); }
+  .form-note{ display:block; margin-top:.85rem; font-size:.82rem; color:var(--encre-soft); font-style:italic; text-align:center; }
+  .form-msg{ margin-top:1rem; padding:.85rem 1rem; border-radius:12px; background:var(--sauge-wash); border:1px solid var(--sauge-clair); color:var(--sauge-deep); font-size:.9rem; font-weight:550; display:none; }
+  .form-msg.show{ display:block; }
+  .privacy-note{ display:flex; gap:.7rem; align-items:flex-start; margin-top:1.4rem; padding:1rem 1.1rem; background:rgba(220,231,222,.5); border:1px solid rgba(140,178,158,.4); border-radius:14px; font-size:.83rem; color:var(--encre-soft); }
+  .privacy-note svg{ width:20px; height:20px; color:var(--sauge-deep); flex:0 0 auto; margin-top:.1rem; }
+
+  /* ============ Mentions légales ============ */
+  .legal{ background:var(--sable); }
+  .disclaimer{
+    display:flex; gap:.85rem; align-items:flex-start;
+    background:var(--lin-2); border:1px solid var(--hair-2); border-left:4px solid var(--terre);
+    border-radius:14px; padding:1.1rem 1.25rem; margin-bottom:1.8rem; box-shadow:var(--shadow-sm);
+  }
+  .disclaimer svg{ width:22px; height:22px; color:var(--terre); flex:0 0 auto; margin-top:.15rem; }
+  .disclaimer p{ margin:0; font-size:.92rem; color:var(--encre); }
+  .legal-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.1rem 1.6rem; margin:0; }
+  .legal-grid > div{ padding-bottom:.9rem; border-bottom:1px solid var(--hair-2); }
+  .legal-grid dt{ font-weight:700; font-size:.78rem; letter-spacing:.06em; text-transform:uppercase; color:var(--sauge-deep); margin-bottom:.3rem; }
+  .legal-grid dd{ margin:0; color:var(--encre-soft); font-size:.92rem; }
+
+  /* ============ Footer ============ */
+  footer.site{ background:var(--encre); color:#C6CCC4; padding-block:2.4rem; }
+  .foot{ display:flex; align-items:center; justify-content:space-between; gap:1.4rem; flex-wrap:wrap; }
+  .fb{ display:flex; align-items:center; gap:.7rem; color:#EDEBE3; font-size:.94rem; }
+  .fb svg{ flex:0 0 auto; }
+  .credit{ text-align:right; font-size:.9rem; }
+  .credit a{ color:var(--sauge-clair); font-weight:650; text-decoration:none; }
+  .credit a:hover{ text-decoration:underline; }
+  .credit .dm{ display:block; font-size:.76rem; color:#8E958B; margin-top:.2rem; }
+
+  /* ============ Responsive ============ */
+  @media (max-width:940px){
+    .hero-grid, .approche-grid, .contact-grid, .rdv-grid{ grid-template-columns:1fr; }
+    .hero-art{ order:-1; max-width:520px; }
+    .approche-grid .room-card{ max-width:560px; }
+  }
+  @media (max-width:820px){
+    .nav-links, .nav-tel{ display:none; }
+    .burger{ display:inline-flex; }
+    .nav-links.open{
+      display:flex; position:absolute; top:100%; left:0; right:0; flex-direction:column; align-items:stretch;
+      background:var(--lin-2); border-bottom:1px solid var(--hair); padding:.6rem clamp(1.1rem,4vw,2.6rem) 1.1rem; gap:.15rem;
+      box-shadow:var(--shadow-md);
+    }
+    .nav-links.open a{ padding:.75rem .6rem; border-radius:12px; }
+  }
+  @media (max-width:520px){
+    .hero-cta .btn{ width:100%; }
+  }
+
+  /* ============ Réduction de mouvement ============ */
+  @media (prefers-reduced-motion:reduce){
+    html{ scroll-behavior:auto; }
+    *, *::before, *::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+    .draw-wave{ stroke-dashoffset:0 !important; }
+    .breathe-ring{ transform:scale(1) !important; opacity:.6 !important; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Aller au contenu principal</a>
+
+<!-- ======================= HEADER ======================= -->
+<header class="site">
+  <div class="wrap">
+    <nav class="nav" aria-label="Navigation principale">
+      <a class="brand" href="#accueil" aria-label="Cabinet Équilibre — accueil">
+        <svg class="mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <circle cx="24" cy="24" r="22" fill="#EBF1EC" stroke="#8CB29E" stroke-width="1.4"/>
+          <path d="M8 26 q5 -7 8 0 t8 0 t8 0 t8 0" stroke="#3C5C4B" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <path d="M24 12 c5 4 5 10 0 14 c-5 -4 -5 -10 0 -14 z" fill="#8CB29E" opacity=".55"/>
+          <circle cx="24" cy="19" r="1.8" fill="#3C5C4B"/>
+        </svg>
+        <span><b>Cabinet Équilibre</b><small>Physiothérapie · Lausanne</small></span>
+      </a>
+
+      <ul class="nav-links" id="navlinks">
+        <li><a href="#soins">Les soins</a></li>
+        <li><a href="#approche">L’approche</a></li>
+        <li><a href="#seance">La séance</a></li>
+        <li><a href="#horaires">Horaires</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="nav-cta">
+        <a class="nav-tel" href="tel:+41215104218">021 510 42 18</a>
+        <a class="btn btn-primary" href="#rendez-vous">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/><path d="M8.5 14.5l2.2 2.2 4.5-4.8"/></svg>
+          Prendre rendez-vous
+        </a>
+        <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navlinks">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ======================= HERO ======================= -->
+  <section class="hero" id="accueil" aria-labelledby="hero-title">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="led" aria-hidden="true"></span> Physiothérapie · Thérapie manuelle</p>
+          <h1 id="hero-title">Retrouver le mouvement,<br><em>tout en douceur.</em></h1>
+          <p class="lede">Au Cabinet Équilibre, nous accompagnons votre corps vers moins de douleur et plus de liberté — avec une écoute attentive, des gestes précis et le temps qu’il faut. Chaque séance respire à votre rythme.</p>
+
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#rendez-vous">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/><path d="M8.5 14.5l2.2 2.2 4.5-4.8"/></svg>
+              Prendre rendez-vous
+            </a>
+            <a class="btn btn-ghost" href="#soins">Découvrir les soins</a>
+          </div>
+
+          <div class="chips">
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3l7 3v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg> Remboursé par l’assurance de base (sur ordonnance)</span>
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-5.2-7-11a7 7 0 1 1 14 0c0 5.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg> À deux pas du Parc de Milan</span>
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg> Lundi – samedi, sur rendez-vous</span>
+          </div>
+        </div>
+
+        <!-- Illustration : respiration + silhouette au trait fin -->
+        <div class="hero-art">
+          <div class="card">
+            <svg viewBox="0 0 460 440" role="img" aria-label="Illustration : cercles de respiration entourant une silhouette assise en posture d’étirement doux">
+              <defs>
+                <radialGradient id="glow" cx="50%" cy="42%" r="60%">
+                  <stop offset="0%" stop-color="#C9E0D2"/>
+                  <stop offset="100%" stop-color="#EBF1EC" stop-opacity="0"/>
+                </radialGradient>
+                <linearGradient id="fig" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#557C68"/>
+                  <stop offset="100%" stop-color="#3C5C4B"/>
+                </linearGradient>
+              </defs>
+
+              <ellipse cx="230" cy="200" rx="200" ry="180" fill="url(#glow)"/>
+
+              <!-- anneaux de respiration -->
+              <g stroke="#8CB29E" fill="none" stroke-width="1.4">
+                <circle class="breathe-ring r3" cx="230" cy="205" r="165" stroke-dasharray="3 8" opacity=".4"/>
+                <circle class="breathe-ring r2" cx="230" cy="205" r="128" opacity=".55"/>
+                <circle class="breathe-ring"   cx="230" cy="205" r="92"  stroke="#557C68" opacity=".7"/>
+              </g>
+
+              <!-- ligne de souffle -->
+              <path class="draw-wave" d="M40 360 q30 -26 60 0 t60 0 t60 0 t60 0 t60 0 t60 0" stroke="#B98E5A" stroke-width="2" fill="none" stroke-linecap="round" opacity=".8"/>
+
+              <!-- silhouette assise, étirement latéral (trait fin) -->
+              <g stroke="url(#fig)" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="212" cy="132" r="19" fill="#EBF1EC"/>
+                <!-- colonne courbe -->
+                <path d="M214 151 q14 34 6 70 q-4 20 -22 34"/>
+                <!-- bras levé en étirement -->
+                <path d="M219 175 q26 -6 40 -30 q6 -10 2 -20"/>
+                <!-- bras d'appui -->
+                <path d="M210 182 q-24 6 -34 30"/>
+                <!-- jambes repliées assises -->
+                <path d="M198 255 q-30 10 -52 4"/>
+                <path d="M204 258 q10 26 42 30"/>
+              </g>
+
+              <!-- points flottants (LED) -->
+              <g>
+                <circle class="float-dot"    cx="352" cy="118" r="5" fill="#557C68"/>
+                <circle class="float-dot d2" cx="96"  cy="150" r="4" fill="#B98E5A"/>
+                <circle class="float-dot d3" cx="388" cy="272" r="4" fill="#8CB29E"/>
+                <circle class="float-dot d4" cx="74"  cy="300" r="5" fill="#8CB29E"/>
+              </g>
+            </svg>
+          </div>
+
+          <div class="hero-badge">
+            <span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20.8 5.6a5 5 0 0 0-7-.2L12 6.9l-1.8-1.5a5 5 0 0 0-7 7L12 21l8.8-8.6a5 5 0 0 0 0-6.8z"/></svg></span>
+            <span><b>Un soin, une personne</b><span>Prise en charge individuelle, jamais à la chaîne.</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= LES SOINS ======================= -->
+  <section class="soins" id="soins" aria-labelledby="soins-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="idx">01 — Nos soins</span>
+        <h2 id="soins-title">Des mains, une méthode, votre équilibre</h2>
+        <p>Cinq approches complémentaires, choisies et combinées selon votre situation. Toujours dans le calme, toujours avec explication.</p>
+      </div>
+
+      <div class="soins-grid">
+        <article class="care">
+          <div class="ico"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="22" cy="11" r="4"/><path d="M22 15v11"/><path d="M22 18l-8 5M22 18l7 3"/><path d="M22 26l-6 12M22 26l6 11"/><path d="M31 11a10 10 0 0 1 3 10" stroke-dasharray="2 3"/></svg></div>
+          <h3>Physiothérapie</h3>
+          <p>Rééducation du mouvement, renforcement progressif et exercices ciblés pour retrouver force et amplitude, en confiance.</p>
+          <span class="tag">Sur ordonnance possible</span>
+        </article>
+
+        <article class="care">
+          <div class="ico"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="18" r="5.5"/><path d="M11 27q6 9 13 9t13-9"/><path d="M14 24q4.5 6.5 10 6.5t10-6.5"/></svg></div>
+          <h3>Thérapie manuelle</h3>
+          <p>Mobilisations articulaires et techniques douces des tissus, pour relâcher les tensions et redonner de la mobilité.</p>
+          <span class="tag">Gestes précis</span>
+        </article>
+
+        <article class="care">
+          <div class="ico"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 38h6v-7h6v-7h6v-7h6"/><path d="M28 13l5-5 5 5"/><path d="M33 8v11"/></svg></div>
+          <h3>Rééducation</h3>
+          <p>Après une blessure, une opération ou un accident : un retour au quotidien étape par étape, sans brusquer le corps.</p>
+          <span class="tag">Post-opératoire</span>
+        </article>
+
+        <article class="care">
+          <div class="ico"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 25c0-5 3.5-8 8-8s8 3 8 8v2a8 8 0 0 1-16 0z"/><path d="M14 33q5 4 10 0t10 0"/><path d="M14 38q5 4 10 0t10 0"/></svg></div>
+          <h3>Massage thérapeutique</h3>
+          <p>Un travail en profondeur des muscles et fascias pour apaiser la douleur, améliorer la circulation et le bien-être.</p>
+          <span class="tag">Détente & soin</span>
+        </article>
+
+        <article class="care">
+          <div class="ico"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 7l13 4.5v9C37 30 31 36 24 39c-7-3-13-9-13-18.5v-9z"/><path d="M17 23h4l2-6 3.5 11 2.5-5h4"/></svg></div>
+          <h3>Prévention</h3>
+          <p>Analyse posturale, conseils ergonomiques et exercices d’entretien pour éviter la récidive et protéger vos articulations.</p>
+          <span class="tag">Bien-être durable</span>
+        </article>
+
+        <article class="care" style="background:linear-gradient(160deg,#EEF3ED,#E1EAE2);border-color:rgba(140,178,158,.5);display:flex;flex-direction:column;justify-content:center;">
+          <h3 style="margin-bottom:.6rem;">Un doute sur le soin adapté ?</h3>
+          <p>Nous en parlons ensemble lors d’un premier échange, sans engagement. Le bon soin, c’est d’abord la bonne écoute.</p>
+          <a class="btn btn-ghost" href="#contact" style="align-self:flex-start;">Nous écrire</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= APPROCHE / CABINET ======================= -->
+  <section id="approche" aria-labelledby="approche-title">
+    <div class="wrap">
+      <div class="approche-grid">
+        <!-- illustration du cabinet : lumière, plante, table de soin (SVG) -->
+        <div class="room-card">
+          <svg viewBox="0 0 420 380" role="img" aria-label="Illustration au trait d’un cabinet lumineux : fenêtre baignée de lumière, plante et table de soin">
+            <rect x="18" y="18" width="384" height="344" rx="20" fill="#FBF9F3" stroke="#DED3BF"/>
+            <!-- fenêtre -->
+            <rect x="52" y="52" width="150" height="150" rx="8" fill="#EBF1EC" stroke="#8CB29E" stroke-width="1.6"/>
+            <path d="M127 52v150M52 127h150" stroke="#8CB29E" stroke-width="1.4"/>
+            <!-- rayons de lumière -->
+            <g class="sun-ray" stroke="#E7D2AE" stroke-width="2.4" stroke-linecap="round">
+              <path d="M202 92l70 34"/><path d="M202 122l72 50"/><path d="M202 152l60 62"/>
+            </g>
+            <!-- plante -->
+            <path d="M300 200c-8-30 6-56 20-64" stroke="#557C68" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M300 200c10-26 30-34 44-30" stroke="#557C68" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M300 200c-2-32-18-46-32-48" stroke="#557C68" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M288 202h26l-4 30h-18z" fill="#B98E5A" opacity=".8"/>
+            <!-- table de soin -->
+            <rect x="70" y="252" width="240" height="26" rx="10" fill="#DCE7DE" stroke="#8CB29E" stroke-width="1.4"/>
+            <rect x="70" y="252" width="70" height="26" rx="10" fill="#8CB29E" opacity=".45"/>
+            <path d="M92 278v46M288 278v46" stroke="#3C5C4B" stroke-width="3" stroke-linecap="round"/>
+            <!-- petite onde de calme -->
+            <path d="M120 322q22-12 44 0t44 0t44 0" stroke="#8CB29E" stroke-width="1.4" fill="none" stroke-linecap="round" opacity=".7"/>
+          </svg>
+        </div>
+
+        <div>
+          <span class="idx">02 — L’approche & le cabinet</span>
+          <h2 id="approche-title" style="font-size:clamp(1.85rem,3.6vw,2.9rem);margin-bottom:.9rem;">Le soin prend le temps qu’il mérite</h2>
+          <p style="color:var(--encre-soft);font-size:1.05rem;margin:0;">Notre cabinet a été pensé comme une parenthèse : lumière naturelle, espace, silence. Ici, on ne court pas. On écoute d’abord, on explique chaque geste, et on avance à votre rythme — le vôtre, pas celui d’un protocole.</p>
+
+          <ul class="values">
+            <li>
+              <span class="vi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-5.2-7-11a7 7 0 1 1 14 0c0 5.8-7 11-7 11z"/><path d="M9 10l2 2 4-4"/></svg></span>
+              <div><b>Une écoute avant tout</b><span>Un bilan complet à la première séance : votre histoire, vos douleurs, vos objectifs.</span></div>
+            </li>
+            <li>
+              <span class="vi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+              <div><b>Des séances individuelles</b><span>45 minutes rien que pour vous, jamais deux patients en même temps.</span></div>
+            </li>
+            <li>
+              <span class="vi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 12a8 8 0 0 1 16 0"/><path d="M4 12a8 8 0 0 0 16 0"/><path d="M12 4v16"/></svg></span>
+              <div><b>Vous rendre autonome</b><span>Des exercices simples à refaire chez vous, pour que les progrès durent au-delà du cabinet.</span></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= DÉROULÉ D'UNE SÉANCE ======================= -->
+  <section class="seance" id="seance" aria-labelledby="seance-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="idx">03 — Le déroulé d’une séance</span>
+        <h2 id="seance-title">De l’accueil au retour au mouvement</h2>
+        <p>Quatre temps, toujours les mêmes, pour que vous sachiez exactement ce qui vous attend.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="n">1</div>
+          <span class="line" aria-hidden="true"></span>
+          <h3>Accueil & bilan</h3>
+          <p>On prend le temps de comprendre votre douleur, votre quotidien et vos attentes. Aucun geste sans explication.</p>
+        </div>
+        <div class="step">
+          <div class="n">2</div>
+          <span class="line" aria-hidden="true"></span>
+          <h3>Évaluation du corps</h3>
+          <p>Tests de mobilité, de posture et de force pour cibler précisément l’origine de la gêne.</p>
+        </div>
+        <div class="step">
+          <div class="n">3</div>
+          <span class="line" aria-hidden="true"></span>
+          <h3>Le soin adapté</h3>
+          <p>Thérapie manuelle, mobilisations et exercices guidés, dosés selon votre ressenti du jour.</p>
+        </div>
+        <div class="step">
+          <div class="n">4</div>
+          <h3>Conseils & suite</h3>
+          <p>Exercices à emporter, conseils de prévention et planification des prochaines séances si besoin.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= VITRINE VISUELLE ======================= -->
+  <section class="vitrine" id="vitrine" aria-labelledby="vitrine-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="idx">04 — Le mouvement en images</span>
+        <h2 id="vitrine-title">Le corps, au fil du geste</h2>
+        <p>Étirement, respiration, mobilité articulaire : le vocabulaire quotidien du cabinet, dessiné au trait.</p>
+      </div>
+
+      <div class="board">
+        <div class="poses">
+          <div class="pose">
+            <svg viewBox="0 0 100 130" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Silhouette en étirement latéral debout">
+              <circle cx="52" cy="20" r="9" fill="#DCE7DE"/>
+              <path d="M52 29q10 26 2 46"/>
+              <path d="M54 40q22-2 30-22"/>
+              <path d="M50 44q-16 6-14 26"/>
+              <path d="M54 75l10 40"/>
+              <path d="M52 75l-10 40"/>
+            </svg>
+            <span>Étirement</span>
+          </div>
+
+          <div class="pose">
+            <svg viewBox="0 0 100 130" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Silhouette assise en flexion avant douce">
+              <circle cx="34" cy="52" r="9" fill="#DCE7DE"/>
+              <path d="M40 58q22-6 40 2"/>
+              <path d="M42 58q6 18 2 36"/>
+              <path d="M44 94h34"/>
+              <path d="M40 66q16 2 26 22"/>
+            </svg>
+            <span>Flexion assise</span>
+          </div>
+
+          <div class="pose">
+            <svg viewBox="0 0 100 130" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Colonne vertébrale stylisée avec courbure naturelle">
+              <path d="M50 12q-12 20 0 40t0 40 0 26" stroke-width="3.4"/>
+              <path d="M50 20l16-4M50 32l18-2M50 46l18 2M50 62l18 4M50 78l16 6M50 94l14 8" opacity=".8"/>
+              <circle cx="50" cy="12" r="4" fill="#8CB29E" stroke="none"/>
+            </svg>
+            <span>Colonne</span>
+          </div>
+
+          <div class="pose">
+            <svg viewBox="0 0 100 130" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Articulation avec flèches de rotation">
+              <circle cx="50" cy="50" r="18" fill="#DCE7DE"/>
+              <circle cx="50" cy="50" r="5" fill="#557C68" stroke="none"/>
+              <path d="M50 20a30 30 0 0 1 26 15" stroke-dasharray="0" opacity=".9"/>
+              <path d="M72 30l5 6 7-3"/>
+              <path d="M50 80a30 30 0 0 1-26-15"/>
+              <path d="M28 70l-5-6-7 3"/>
+              <path d="M40 108q10-8 20 0" opacity=".7"/>
+            </svg>
+            <span>Mobilité</span>
+          </div>
+
+          <div class="pose">
+            <svg viewBox="0 0 100 130" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Cercles concentriques de respiration">
+              <circle cx="50" cy="60" r="10" fill="#DCE7DE"/>
+              <circle cx="50" cy="60" r="24" opacity=".8"/>
+              <circle cx="50" cy="60" r="38" stroke-dasharray="3 7" opacity=".55"/>
+              <path d="M50 110q0-10 0 0" />
+              <path d="M22 108q28-14 56 0" stroke="#B98E5A" opacity=".8"/>
+            </svg>
+            <span>Respiration</span>
+          </div>
+
+          <div class="pose">
+            <svg viewBox="0 0 100 130" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Deux mains stylisées en soin manuel">
+              <path d="M30 40q0-10 10-10 4 0 6 4"/>
+              <path d="M28 44v24a16 16 0 0 0 32 0V50"/>
+              <path d="M46 34q2-6 8-4 5 2 4 8v14"/>
+              <path d="M62 96q10-6 12-20" opacity=".7"/>
+              <path d="M26 96q-6-8-6-20" opacity=".7"/>
+            </svg>
+            <span>Thérapie manuelle</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= TÉMOIGNAGES ======================= -->
+  <section class="temoins" id="temoignages" aria-labelledby="temoins-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="idx">05 — Ils ont retrouvé leur mouvement</span>
+        <h2 id="temoins-title">La confiance, séance après séance</h2>
+      </div>
+
+      <div class="quotes">
+        <figure class="quote">
+          <span class="mk" aria-hidden="true">“</span>
+          <div class="stars" aria-label="Cinq étoiles sur cinq">★★★★★</div>
+          <blockquote><p>Après mon opération du genou, je redoutais la rééducation. Ici, tout est expliqué, progressif, jamais brusque. J’ai retrouvé la marche bien plus vite que prévu.</p></blockquote>
+          <figcaption class="who">
+            <span class="av" style="background:linear-gradient(135deg,#557C68,#3C5C4B);">C</span>
+            <span><b>Claire M.</b><span>Rééducation post-opératoire</span></span>
+          </figcaption>
+        </figure>
+
+        <figure class="quote">
+          <span class="mk" aria-hidden="true">“</span>
+          <div class="stars" aria-label="Cinq étoiles sur cinq">★★★★★</div>
+          <blockquote><p>Des années de douleurs au dos liées au bureau. La thérapie manuelle et les conseils de posture ont vraiment changé mon quotidien. On se sent écouté et pris au sérieux.</p></blockquote>
+          <figcaption class="who">
+            <span class="av" style="background:linear-gradient(135deg,#B98E5A,#8A6634);">M</span>
+            <span><b>Marc D.</b><span>Douleurs chroniques du dos</span></span>
+          </figcaption>
+        </figure>
+
+        <figure class="quote">
+          <span class="mk" aria-hidden="true">“</span>
+          <div class="stars" aria-label="Cinq étoiles sur cinq">★★★★★</div>
+          <blockquote><p>Un cabinet lumineux et apaisant, à mille lieues de l’ambiance clinique. Les séances individuelles font toute la différence : on ne se sent jamais pressé.</p></blockquote>
+          <figcaption class="who">
+            <span class="av" style="background:linear-gradient(135deg,#8CB29E,#557C68);">S</span>
+            <span><b>Sophie L.</b><span>Suivi & prévention</span></span>
+          </figcaption>
+        </figure>
+      </div>
+
+      <p class="temoin-note">Témoignages illustratifs présentés à titre d’exemple pour cette démonstration. Prénoms génériques.</p>
+    </div>
+  </section>
+
+  <!-- ======================= HORAIRES + RDV ======================= -->
+  <section id="horaires" aria-labelledby="horaires-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="idx">06 — Horaires & rendez-vous</span>
+        <h2 id="horaires-title">Trouver le bon moment, simplement</h2>
+      </div>
+
+      <div class="rdv-grid" id="rendez-vous">
+        <div class="panel">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg> Nos horaires d’ouverture</h3>
+          <table class="hours">
+            <caption class="sr-only" style="position:absolute;left:-9999px;">Horaires d’ouverture du cabinet</caption>
+            <tbody>
+              <tr><th scope="row">Lundi</th><td>08 h 00 – 19 h 00</td></tr>
+              <tr><th scope="row">Mardi</th><td>08 h 00 – 19 h 00</td></tr>
+              <tr><th scope="row">Mercredi</th><td>08 h 00 – 19 h 00</td></tr>
+              <tr><th scope="row">Jeudi</th><td>08 h 00 – 20 h 00</td></tr>
+              <tr><th scope="row">Vendredi</th><td>08 h 00 – 18 h 00</td></tr>
+              <tr><th scope="row">Samedi</th><td>09 h 00 – 13 h 00</td></tr>
+              <tr><th scope="row">Dimanche</th><td class="closed">Fermé</td></tr>
+            </tbody>
+          </table>
+          <p style="margin:1.2rem 0 0;font-size:.86rem;color:var(--encre-soft);">Urgence en dehors des heures ? Laissez-nous un message, nous rappelons dans la demi-journée ouvrée.</p>
+        </div>
+
+        <div class="panel rdv-inner">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/><path d="M8.5 14.5l2.2 2.2 4.5-4.8"/></svg> Prendre rendez-vous</h3>
+          <p>Nouveau patient ou suivi : réservez le créneau qui vous convient. Pensez à votre ordonnance si votre médecin vous en a remis une.</p>
+          <ul class="rdv-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Première séance : bilan complet de 60 minutes</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Séances de suivi de 45 minutes</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Prise en charge par l’assurance de base sur ordonnance</li>
+          </ul>
+          <div style="display:flex;flex-wrap:wrap;gap:.7rem;">
+            <a class="btn btn-primary" href="#contact">Réserver en ligne</a>
+            <a class="btn btn-ghost" href="tel:+41215104218">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 3h3l2 6-2.5 1.5a12 12 0 0 0 5 5L16 13l6 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z"/></svg>
+              021 510 42 18
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= CONTACT ======================= -->
+  <section id="contact" aria-labelledby="contact-title" style="background:linear-gradient(180deg,transparent,rgba(220,231,222,.4),transparent);">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="idx">07 — Nous contacter</span>
+        <h2 id="contact-title">Écrivons le premier chapitre de votre soin</h2>
+        <p>Une question, une douleur, une envie d’en parler ? Laissez-nous un message, nous vous répondons avec attention.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="ci">
+            <span class="ii"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-5.2-7-11a7 7 0 1 1 14 0c0 5.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+            <div><b>Adresse</b><span>Avenue des Tilleuls 14<br>1005 Lausanne (VD)</span></div>
+          </div>
+          <div class="ci">
+            <span class="ii"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 3h3l2 6-2.5 1.5a12 12 0 0 0 5 5L16 13l6 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z"/></svg></span>
+            <div><b>Téléphone</b><a href="tel:+41215104218">+41 21 510 42 18</a></div>
+          </div>
+          <div class="ci">
+            <span class="ii"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 6l8 6 8-6"/></svg></span>
+            <div><b>E-mail</b><a href="mailto:contact@cabinet-equilibre-lausanne.ch">contact@cabinet-equilibre-lausanne.ch</a></div>
+          </div>
+          <div class="ci">
+            <span class="ii"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 6h16M4 6l1.5 12a2 2 0 0 0 2 1.8h9a2 2 0 0 0 2-1.8L20 6"/><path d="M9 3h6"/></svg></span>
+            <div><b>Accès</b><span>Bus 6 & 8, arrêt « Parc de Milan »<br>Places PMR à proximité</span></div>
+          </div>
+
+          <div class="privacy-note" role="note">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3l7 3v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+            <span><strong>Vos données de santé sont sensibles.</strong> Elles sont traitées de manière strictement confidentielle, conformément à la nLPD et au secret professionnel. Merci de ne pas transmettre d’informations médicales détaillées via ce formulaire.</span>
+          </div>
+        </div>
+
+        <form id="contact-form" novalidate aria-describedby="form-note">
+          <div class="field row">
+            <div class="field">
+              <label for="prenom">Prénom <span class="req" aria-hidden="true">*</span></label>
+              <input type="text" id="prenom" name="prenom" autocomplete="given-name" placeholder="Votre prénom" required>
+            </div>
+            <div class="field">
+              <label for="nom">Nom <span class="req" aria-hidden="true">*</span></label>
+              <input type="text" id="nom" name="nom" autocomplete="family-name" placeholder="Votre nom" required>
+            </div>
+          </div>
+
+          <div class="field row">
+            <div class="field">
+              <label for="email">E-mail <span class="req" aria-hidden="true">*</span></label>
+              <input type="email" id="email" name="email" autocomplete="email" placeholder="vous@exemple.ch" required>
+            </div>
+            <div class="field">
+              <label for="tel">Téléphone</label>
+              <input type="tel" id="tel" name="tel" autocomplete="tel" placeholder="+41 …">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="motif">Motif de la demande</label>
+            <select id="motif" name="motif">
+              <option value="">Sélectionnez…</option>
+              <option>Première consultation</option>
+              <option>Séance de suivi</option>
+              <option>Rééducation post-opératoire</option>
+              <option>Thérapie manuelle</option>
+              <option>Massage thérapeutique</option>
+              <option>Autre / renseignement</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="message">Votre message <span class="req" aria-hidden="true">*</span></label>
+            <textarea id="message" name="message" placeholder="Décrivez brièvement votre besoin et vos disponibilités (sans détail médical précis)." required></textarea>
+          </div>
+
+          <div class="consent">
+            <input type="checkbox" id="consent" name="consent" required>
+            <label for="consent" style="font-weight:400;margin:0;">J’accepte que mes coordonnées soient utilisées pour traiter ma demande, conformément à la protection des données (nLPD). <span class="req" aria-hidden="true">*</span></label>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4z"/></svg>
+            Envoyer ma demande
+          </button>
+
+          <span class="form-note" id="form-note">Formulaire de démonstration — aucune donnée n’est réellement envoyée ni enregistrée.</span>
+          <p class="form-msg" id="form-msg" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= MENTIONS LÉGALES ======================= -->
+  <section class="legal" aria-labelledby="legal-title">
+    <div class="wrap">
+      <div class="sec-head" style="margin-bottom:1.6rem;">
+        <span class="idx">08 — Informations légales</span>
+        <h2 id="legal-title" style="font-size:clamp(1.5rem,2.6vw,2rem);">Mentions légales</h2>
+      </div>
+
+      <div class="disclaimer" role="note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 3l9 16H3z"/><line x1="12" y1="9" x2="12" y2="14"/><circle cx="12" cy="17" r=".7" fill="currentColor" stroke="none"/></svg>
+        <p><strong>Site de démonstration fictif réalisé par Wahl BI Consulting</strong> — ne correspond à aucune entreprise réelle. Raison sociale, adresses, coordonnées, horaires et témoignages sont illustratifs et n’ont aucune valeur contractuelle. Aucune prestation de santé n’est réellement proposée sur cette page.</p>
+      </div>
+
+      <dl class="legal-grid">
+        <div><dt>Raison sociale</dt><dd>Cabinet Équilibre Sàrl<br>(société fictive)</dd></div>
+        <div><dt>Siège</dt><dd>Avenue des Tilleuls 14<br>1005 Lausanne (VD), Suisse</dd></div>
+        <div><dt>N° IDE</dt><dd>CHE-000.000.000<br>(fictif)</dd></div>
+        <div><dt>Contact</dt><dd>+41 21 510 42 18<br>contact@cabinet-equilibre-lausanne.ch</dd></div>
+        <div><dt>Responsable</dt><dd>La direction du cabinet<br>(personne fictive)</dd></div>
+        <div><dt>Hébergement</dt><dd>Hébergeur générique<br>Centre de données en Suisse</dd></div>
+        <div><dt>Données de santé</dt><dd>Données sensibles traitées conformément à la nLPD et au secret professionnel — aucune donnée réelle n’est collectée sur cette page de démonstration.</dd></div>
+        <div><dt>Conception</dt><dd>Wahl BI Consulting<br>Agence web · Suisse</dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<!-- ======================= FOOTER ======================= -->
+<footer class="site">
+  <div class="wrap">
+    <div class="foot">
+      <div class="fb">
+        <svg width="34" height="34" viewBox="0 0 48 48" aria-hidden="true">
+          <circle cx="24" cy="24" r="21" fill="none" stroke="rgba(140,178,158,.5)" stroke-width="1.2"/>
+          <path d="M9 27 q5 -6 8 0 t8 0 t8 0 t6 0" stroke="#8CB29E" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          <circle cx="24" cy="18" r="2.2" fill="#B98E5A"/>
+        </svg>
+        <span>Cabinet Équilibre · Physiothérapie · Lausanne</span>
+      </div>
+      <div class="credit">
+        Démonstration réalisée par <a href="https://wahl-bi-consulting.ch" target="_blank" rel="noopener noreferrer">Wahl BI Consulting</a>
+        <span class="dm">Entreprise fictive · aucun lien avec un cabinet réel</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Menu mobile
+  (function () {
+    var burger = document.getElementById('burger');
+    var links = document.getElementById('navlinks');
+    if (burger && links) {
+      burger.addEventListener('click', function () {
+        var open = links.classList.toggle('open');
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        burger.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+      });
+      links.addEventListener('click', function (e) {
+        if (e.target.tagName === 'A') {
+          links.classList.remove('open');
+          burger.setAttribute('aria-expanded', 'false');
+          burger.setAttribute('aria-label', 'Ouvrir le menu');
+        }
+      });
+    }
+  })();
+
+  // Formulaire de démonstration — non fonctionnel (aucune donnée envoyée)
+  (function () {
+    var form = document.getElementById('contact-form');
+    var msg = document.getElementById('form-msg');
+    if (form && msg) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        msg.textContent = 'Merci ! Ceci est un site de démonstration : votre message n’a pas été envoyé ni enregistré. Sur un site réel, votre demande arriverait directement au cabinet.';
+        msg.classList.add('show');
+        msg.focus && msg.focus();
+        msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    }
+  })();
+</script>
+</body>
+</html>
